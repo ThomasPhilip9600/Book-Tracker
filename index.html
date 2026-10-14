@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Book Tracker — keep track of books you want to read, are currently reading, or have finished."
+    />
+    <title>Book Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+      <div class="header-inner">
+        <span class="header-logo" aria-hidden="true">📚</span>
+        <h1 class="header-title">Book Tracker</h1>
+        <p class="header-subtitle">Your personal reading journal</p>
+      </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="site-main">
+
+      <!-- Storage error banner (shown by JS only if localStorage is unavailable) -->
+      <div id="storage-error" class="storage-error" role="alert" aria-live="assertive" hidden>
+        <span class="storage-error__icon" aria-hidden="true">⚠️</span>
+        <p class="storage-error__text">
+          Your library cannot be saved — localStorage is unavailable or full.
+          Books added this session will be lost when you close the tab.
+        </p>
+      </div>
+
+      <!-- Section 1: Add-book form -->
+      <section class="section section--form" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="section-title">Add a New Book</h2>
+
+        <form id="add-book-form" class="book-form" novalidate>
+          <!-- Title -->
+          <div class="form-group">
+            <label for="book-title" class="form-label">Title <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="book-title"
+              name="title"
+              class="form-input"
+              placeholder="e.g. The Great Gatsby"
+              required
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- Author -->
+          <div class="form-group">
+            <label for="book-author" class="form-label">Author <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="book-author"
+              name="author"
+              class="form-input"
+              placeholder="e.g. F. Scott Fitzgerald"
+              required
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- Status -->
+          <div class="form-group">
+            <label for="book-status" class="form-label">Status</label>
+            <select id="book-status" name="status" class="form-select">
+              <option value="to-read">To Read</option>
+              <option value="reading">Reading</option>
+              <option value="finished">Finished</option>
+            </select>
+          </div>
+
+          <!-- Inline error message (e.g. duplicate book or empty fields) -->
+          <div id="form-error" class="form-error" role="alert" aria-live="polite" hidden></div>
+
+          <!-- Submit -->
+          <div class="form-group form-group--submit">
+            <button type="submit" id="add-book-btn" class="btn btn--primary">
+              <span class="btn-icon" aria-hidden="true">+</span> Add Book
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Section 2: Search -->
+      <section class="section section--search" aria-labelledby="search-heading">
+        <h2 id="search-heading" class="section-title">Your Library</h2>
+
+        <div class="search-wrapper">
+          <label for="search-input" class="sr-only">Search books</label>
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="Search by title or author…"
+            autocomplete="off"
+          />
+        </div>
+      </section>
+
+      <!-- Section 3: Book list -->
+      <section class="section section--list" aria-label="Book list">
+        <ul id="book-list" class="book-list" role="list">
+          <!-- Books will be rendered here by script.js -->
+        </ul>
+
+        <!-- Empty state: no books at all -->
+        <div id="empty-state" class="empty-state" aria-live="polite">
+          <span class="empty-state__icon" aria-hidden="true">🌟</span>
+          <p class="empty-state__heading">Your library is empty</p>
+          <p class="empty-state__hint">Add your first book above to get started!</p>
+        </div>
+
+        <!-- No-results state: books exist but none match the search query -->
+        <div id="no-results" class="empty-state" aria-live="polite">
+          <span class="empty-state__icon" aria-hidden="true">🔍</span>
+          <p class="empty-state__heading">No books found</p>
+          <p class="empty-state__hint">Try a different title or author.</p>
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>
